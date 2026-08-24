@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>i am here — Meenakshi Priyesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--black:#111110;--muted:#888882;--sans:'DM Sans',system-ui,sans-serif;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:#fff;color:var(--black);cursor:none;overflow-x:hidden;}
+.cur-dot{width:8px;height:8px;background:var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{width:34px;height:34px;border:1.5px solid rgba(0,0,0,0.22);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;}
+.cur-ring.hov{width:52px;height:52px;border-color:rgba(0,0,0,0.4);background:rgba(0,0,0,0.04);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(248,247,244,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:400;color:rgba(0,0,0,0.45);text-decoration:none;letter-spacing:0.01em;transition:color .2s;}
+.nav-back:hover{color:var(--black);}
+.nav-back svg{width:13px;height:13px;}
+.nav-logo{font-family:'Permanent Marker',cursive;font-size:16px;color:var(--black);text-decoration:none;letter-spacing:0.02em;}
+.nav-count{font-size:12px;color:rgba(0,0,0,0.3);letter-spacing:.06em;font-weight:400;}
+
+/* INFO STRIP */
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08);}
+.info-cell{padding:28px 48px;border-right:1px solid rgba(0,0,0,0.08);}
+.info-cell:last-child{border-right:none;}
+.info-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.info-val{font-family:var(--sans);font-size:14px;font-weight:500;color:var(--black);line-height:1.4;}
+
+/* PANELS */
+.iah-panels{display:flex;flex-direction:column;gap:0;}
+.iah-panel{width:100%;overflow:hidden;}
+.iah-panel img{display:block;width:100%;height:auto;}
+
+/* PROJECT NAV */
+.proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+.pn-prev,.pn-next{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:12px;color:rgba(0,0,0,0.5);letter-spacing:0.01em;transition:color .2s;}
+.pn-next{justify-content:flex-end;}
+.pn-dir{font-size:12px;letter-spacing:0.01em;color:rgba(0,0,0,0.45);}
+.pn-title{font-size:12px;font-weight:500;color:rgba(0,0,0,0.7);transition:color .2s;}
+.pn-prev:hover,.pn-next:hover{color:rgba(0,0,0,0.85);}
+.pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+.pn-all:hover{opacity:0.6;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .info-strip{grid-template-columns:repeat(2,1fr);}
+  .info-cell{padding:20px 20px;}
+  .proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+  .pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+}
+</style>
+</head>
+<body>
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <a href="gallery.html" class="nav-back">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Projects
+  </a>
+  <a href="index.html" class="nav-logo">MNKS</a>
+  <span class="nav-count">05 / 11</span>
+</nav>
+
+<!-- Panels -->
+<div class="iah-panels" style="margin-top:60px;">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 1.jpg" alt="i am here panel 1">
+  </div>
+
+</div>
+
+<!-- Info strip -->
+<div class="info-strip">
+  <div class="info-cell"><p class="info-label">Role</p><p class="info-val">Concept, Direction, Hand-drawn Animation</p></div>
+  <div class="info-cell"><p class="info-label">Tools</p><p class="info-val">Procreate, After Effects</p></div>
+  <div class="info-cell"><p class="info-label">Type</p><p class="info-val">Animation · Short Film</p></div>
+  <div class="info-cell"><p class="info-label">Year</p><p class="info-val">2023</p></div>
+</div>
+
+<!-- Animation video with controls -->
+<div id="animContainer" style="width:100%;background:#000;overflow:hidden;position:relative;">
+  <video id="mainAnim" src="./images/projects/i-am-here/I am here animation .MOV" playsinline style="display:block;width:100%;height:auto;"></video>
+
+  <!-- Custom controls bar -->
+  <div id="vidControls" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.7));padding:16px 24px 20px;display:flex;align-items:center;gap:16px;opacity:1;transition:opacity .3s;">
+    <!-- Play/Pause -->
+    <button id="playBtn" onclick="togglePlay()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;">
+      <svg id="iconPlay" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="white" stroke-width="1.5"/><polygon points="11,9 21,14 11,19" fill="white"/></svg>
+      <svg id="iconPause" width="28" height="28" viewBox="0 0 28 28" fill="none" style="display:none;"><circle cx="14" cy="14" r="13" stroke="white" stroke-width="1.5"/><rect x="9" y="9" width="3.5" height="10" rx="1" fill="white"/><rect x="15.5" y="9" width="3.5" height="10" rx="1" fill="white"/></svg>
+    </button>
+    <!-- Rewind 10s -->
+    <button onclick="rewind()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 4V1L8 5l5 4V6a7 7 0 11-7 7H4a9 9 0 109-9z" fill="white"/><text x="9" y="17" font-size="6" fill="white" font-family="sans-serif">10</text></svg>
+    </button>
+    <!-- Progress bar -->
+    <input id="progressBar" type="range" min="0" max="100" value="0" oninput="seek(this.value)" style="flex:1;height:3px;accent-color:#fff;cursor:pointer;">
+    <!-- Time -->
+    <span id="timeDisplay" style="color:#fff;font-size:12px;font-family:sans-serif;white-space:nowrap;min-width:80px;text-align:right;">0:00 / 0:00</span>
+    <!-- Fullscreen -->
+    <button onclick="goFullscreen()" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 8V3h5M14 3h5v5M3 14v5h5M19 14v5h-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var v = document.getElementById('mainAnim');
+  var container = document.getElementById('animContainer');
+  var bar = document.getElementById('vidControls');
+  var prog = document.getElementById('progressBar');
+  var time = document.getElementById('timeDisplay');
+  var iconPlay = document.getElementById('iconPlay');
+  var iconPause = document.getElementById('iconPause');
+
+  function fmt(s){ var m=Math.floor(s/60),sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
+
+  v.addEventListener('timeupdate', function(){
+    if(v.duration){ prog.value=(v.currentTime/v.duration)*100; time.textContent=fmt(v.currentTime)+' / '+fmt(v.duration); }
+  });
+  v.addEventListener('play',  function(){ iconPlay.style.display='none'; iconPause.style.display='flex'; });
+  v.addEventListener('pause', function(){ iconPlay.style.display='flex'; iconPause.style.display='none'; });
+  v.addEventListener('click', function(){ window.togglePlay(); });
+
+  window.togglePlay = function(){
+    if(v.paused){ var p=v.play(); if(p && p.catch) p.catch(function(){}); }
+    else { v.pause(); }
+  };
+  window.rewind = function(){ v.currentTime = Math.max(0, v.currentTime-10); };
+  window.seek   = function(val){ if(v.duration) v.currentTime=(val/100)*v.duration; };
+  window.goFullscreen = function(){
+    var el = container;
+    if(el.requestFullscreen)            el.requestFullscreen();
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(v.requestFullscreen)        v.requestFullscreen();
+    else if(v.webkitRequestFullscreen)  v.webkitRequestFullscreen();
+  };
+})();
+</script>
+
+<!-- Remaining panels -->
+<div class="iah-panels">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 2.jpg" alt="i am here panel 2">
+  </div>
+
+</div>
+
+<div class="iah-panels">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 3.jpg" alt="i am here panel 3">
+  </div>
+
+</div>
+
+<!-- Video 1 & 2 side by side -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#000;">
+  <div style="overflow:hidden;background:#000;">
+    <video src="./images/projects/i-am-here/video 1.mov" autoplay loop muted playsinline style="display:block;width:100%;height:100%;object-fit:cover;"></video>
+  </div>
+  <div style="overflow:hidden;background:#000;">
+    <video src="./images/projects/i-am-here/video 2.mov" autoplay loop muted playsinline style="display:block;width:100%;height:100%;object-fit:cover;"></video>
+  </div>
+</div>
+
+<!-- Video 3 full width -->
+<div style="width:100%;background:#000;overflow:hidden;">
+  <video src="./images/projects/i-am-here/video 3.mov" autoplay loop muted playsinline style="display:block;width:100%;height:auto;"></video>
+</div>
+
+<div class="iah-panels">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 4.jpg" alt="i am here panel 4">
+  </div>
+
+</div>
+
+<!-- Video 4 full width -->
+<div style="width:100%;background:#000;overflow:hidden;">
+  <video src="./images/projects/i-am-here/video 4.mov" autoplay loop muted playsinline style="display:block;width:100%;height:auto;"></video>
+</div>
+
+<div class="iah-panels">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 5.jpg" alt="i am here panel 5">
+  </div>
+
+</div>
+
+<!-- Video 5 full width -->
+<div style="width:100%;background:#000;overflow:hidden;">
+  <video src="./images/projects/i-am-here/video 5.mov" autoplay loop muted playsinline style="display:block;width:100%;height:auto;"></video>
+</div>
+
+<!-- Video 6 & 7 side by side -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#000;">
+  <div style="overflow:hidden;background:#000;">
+    <video src="./images/projects/i-am-here/video 6.mov" autoplay loop muted playsinline style="display:block;width:100%;height:100%;object-fit:cover;"></video>
+  </div>
+  <div style="overflow:hidden;background:#000;">
+    <video src="./images/projects/i-am-here/video 7.mov" autoplay loop muted playsinline style="display:block;width:100%;height:100%;object-fit:cover;"></video>
+  </div>
+</div>
+
+<div class="iah-panels">
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 6.jpg" alt="i am here panel 6">
+  </div>
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 7.jpg" alt="i am here panel 7">
+  </div>
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 8.jpg" alt="i am here panel 8">
+  </div>
+
+  <div class="iah-panel">
+    <img src="./images/projects/i-am-here/panel 9.jpg" alt="i am here panel 9">
+  </div>
+
+</div>
+
+<!-- Project nav -->
+<nav class="proj-nav">
+  <a href="sparsh.html" class="pn-prev"><span class="pn-dir">← Previous</span><span class="pn-title">Sparsh</span></a>
+  <a href="gallery.html" class="pn-all">All Projects</a>
+  <a href="looped.html" class="pn-next"><span class="pn-dir">Next →</span><span class="pn-title">Looped</span></a>
+</nav>
+
+<script>
+(() => {
+  const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hov'));el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));});
+})();
+</script>
+</body>
+</html>

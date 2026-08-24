@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Looped — Meenakshi Priyesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--lime:#CDFF57;--black:#111110;--muted:#888882;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:#f8f7f4;color:var(--black);cursor:none;overflow-x:hidden;}
+.cur-dot{width:8px;height:8px;background:var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{width:34px;height:34px;border:1.5px solid rgba(0,0,0,0.2);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;}
+.cur-ring.hov{width:52px;height:52px;border-color:rgba(80,80,200,0.4);background:rgba(80,80,200,0.05);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(248,247,244,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:400;color:rgba(0,0,0,0.45);text-decoration:none;letter-spacing:0.01em;transition:color .2s;}
+.nav-back:hover{color:var(--black);}
+.nav-back svg{width:13px;height:13px;}
+.nav-logo{font-family:'Permanent Marker',cursive;font-size:16px;color:var(--black);text-decoration:none;letter-spacing:0.02em;}
+.nav-count{font-size:12px;color:rgba(0,0,0,0.3);letter-spacing:.06em;font-weight:400;}
+.proj-hero{position:relative;height:100vh;min-height:600px;background:#f0f0f8;overflow:hidden;display:flex;align-items:flex-end;}
+.proj-hero svg{position:absolute;inset:0;width:100%;height:100%;}
+.hero-text{position:relative;z-index:2;padding:0 64px 80px;}
+.hero-cat{display:inline-block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,0.38);margin-bottom:20px;}
+.hero-title{font-family:var(--serif);font-style:italic;font-size:clamp(72px,10vw,140px);font-weight:400;line-height:.9;color:var(--black);margin-bottom:24px;}
+.hero-tagline{font-size:14px;color:rgba(0,0,0,0.4);letter-spacing:.04em;}
+.hero-num{position:absolute;right:64px;bottom:80px;font-size:11px;letter-spacing:.12em;color:rgba(0,0,0,0.18);}
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(0,0,0,0.08);}
+.info-cell{padding:32px 48px;border-right:1px solid rgba(0,0,0,0.08);}
+.info-cell:last-child{border-right:none;}
+.info-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.info-val{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--black);line-height:1.4;}
+.proj-section{max-width:900px;margin:0 auto;padding:80px 48px;}
+.section-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.proj-section h2{font-family:var(--serif);font-style:italic;font-size:36px;font-weight:400;color:var(--black);margin-bottom:24px;}
+.proj-section p{font-size:15px;line-height:1.8;color:#444;max-width:640px;}
+.proj-section p+p{margin-top:18px;}
+.proj-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:0 48px 80px;max-width:1200px;margin:0 auto;}
+.panel{border-radius:16px;overflow:hidden;aspect-ratio:3/4;}
+.panel svg{display:block;width:100%;height:100%;}
+.proj-cta{text-align:center;padding:80px 48px;background:#f0f0f8;}
+.proj-cta p{font-size:13px;letter-spacing:.06em;color:rgba(0,0,0,0.35);margin-bottom:32px;text-transform:uppercase;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--black);color:white;font-family:var(--sans);font-size:14px;font-weight:600;padding:16px 40px;border-radius:40px;text-decoration:none;letter-spacing:.03em;transition:transform .2s,box-shadow .2s;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.18);}
+.proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+.pn-prev,.pn-next{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:12px;color:rgba(0,0,0,0.5);letter-spacing:0.01em;transition:color .2s;}
+.pn-next{justify-content:flex-end;}
+.pn-dir{font-size:12px;letter-spacing:0.01em;color:rgba(0,0,0,0.45);}
+.pn-title{font-size:12px;font-weight:500;color:rgba(0,0,0,0.7);transition:color .2s;}
+.pn-prev:hover,.pn-next:hover{color:rgba(0,0,0,0.85);}
+.pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+.pn-all:hover{opacity:0.6;}
+@media(max-width:768px){nav{padding:0 24px;}.hero-text{padding:0 32px 60px;}.hero-num{right:32px;bottom:60px;}.info-strip{grid-template-columns:repeat(2,1fr);}.proj-section{padding:60px 24px;}.proj-panels{grid-template-columns:1fr;padding:0 24px 60px;}.proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}.pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}}
+
+/* ── Real images ── */
+.hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; }
+.proj-hero-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%); }
+.panel img { display:block; width:100%; height:100%; object-fit:cover; }
+</style>
+</head>
+<body>
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <a href="gallery.html" class="nav-back">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Projects
+  </a>
+  <a href="index.html" class="nav-logo">MNKS</a>
+  <span class="nav-count">06 / 11</span>
+</nav>
+
+<section class="proj-hero">
+  <img class="hero-img" src="./images/projects/looped/1.jpg" alt="looped">
+  <div class="proj-hero-overlay"></div>
+  <div class="hero-text">
+    <span class="hero-cat">Interface Design · App Design · User Flow</span>
+    <h1 class="hero-title">Looped</h1>
+    <p class="hero-tagline">Connecting like-minded people through shared interests</p>
+  </div>
+  <span class="hero-num">06 / 11</span>
+</section>
+
+<div class="info-strip">
+  <div class="info-cell"><p class="info-label">Role</p><p class="info-val">UI/UX Design, User Research, Prototyping</p></div>
+  <div class="info-cell"><p class="info-label">Tools</p><p class="info-val">Figma, Procreate</p></div>
+  <div class="info-cell"><p class="info-label">Type</p><p class="info-val">App Design · Interface</p></div>
+  <div class="info-cell"><p class="info-label">Year</p><p class="info-val">2025</p></div>
+</div>
+
+<section class="proj-section">
+  <p class="section-label">Overview</p>
+  <h2>Where your interests find each other.</h2>
+  <p>Looped is a social community app designed around the idea that the best connections happen when people gather around a shared passion — not a profile. The app allows users to create and join micro-communities built on specific interests, from niche film genres to local running clubs to vintage fashion swaps.</p>
+  <p>The design system prioritises warmth over frictionless efficiency — it uses soft type, generous spacing, and an interface that rewards slow exploration. The goal was to build something that felt human-scaled: a place for communities, not content.</p>
+</section>
+
+<div class="proj-panels">
+  <div class="panel">
+    <img src="./images/projects/looped/2.jpg" alt="Project image 1">
+  </div>
+  <div class="panel">
+    <img src="./images/projects/looped/3.jpg" alt="Project image 2">
+  </div>
+  <div class="panel">
+    <img src="./images/projects/looped/4.jpg" alt="Project image 3">
+  </div>
+</div>
+
+<section class="proj-cta">
+  <p>View the full project</p>
+  <a class="cta-btn" href="https://www.behance.net/meenakspriyesh" target="_blank">See Looped on Behance ↗</a>
+</section>
+
+<nav class="proj-nav">
+  <a href="i-am-here.html" class="pn-prev"><span class="pn-dir">← Previous</span><span class="pn-title">i am here</span></a>
+  <a href="gallery.html" class="pn-all">All Projects</a>
+  <a href="polite-society.html" class="pn-next"><span class="pn-dir">Next →</span><span class="pn-title">Polite Society</span></a>
+</nav>
+
+<script>
+(() => {
+  const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hov'));el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));});
+})();
+</script>
+</body>
+</html>

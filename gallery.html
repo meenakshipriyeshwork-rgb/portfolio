@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Works — Meenakshi Priyesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Inter:wght@400;500;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lime: #CDFF57;
+  --black: #0d0d0b;
+  --white: #ffffff;
+  --muted: rgba(255,255,255,0.45);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: #0d0d0b;
+  color: var(--white);
+  cursor: none;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.cur-dot {
+  width: 8px; height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+}
+.cur-ring {
+  width: 34px; height: 34px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.25s, height 0.25s, border-color 0.25s;
+}
+.cur-ring.hov { width: 52px; height: 52px; border-color: #fff; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(13,13,11,0.88);
+  backdrop-filter: blur(14px);
+}
+.nav-back {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500;
+  color: #fff; text-decoration: none;
+  opacity: 0.6; transition: opacity 0.2s;
+}
+.nav-back:hover { opacity: 1; }
+.nav-back svg { width: 14px; height: 14px; }
+.nav-logo {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 17px; color: #fff; text-decoration: none;
+}
+.nav-right {
+  font-size: 12px; color: var(--muted);
+}
+.nav-right a { color: var(--muted); text-decoration: none; }
+.nav-right a:hover { color: #fff; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  padding: 100px 48px 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.page-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-transform: uppercase;
+}
+.page-dot {
+  width: 10px; height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 48px 0;
+}
+
+.filter-bar {
+  padding: 24px 48px 40px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+.f-btn {
+  padding: 7px 18px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 40px;
+  background: transparent;
+  font-family: var(--sans); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.03em; color: var(--muted);
+  cursor: none; transition: all 0.2s;
+}
+.f-btn:hover { border-color: #fff; color: #fff; }
+.f-btn.active { background: #fff; border-color: #fff; color: #0d0d0b; }
+
+/* ── GRID ── */
+.gallery-wrap {
+  padding: 0 48px 120px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.g-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.g-card.visible { opacity: 1; transform: translateY(0); }
+
+.g-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  position: relative;
+  background: #1a1a18;
+}
+.g-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.g-card:hover .g-image img { transform: scale(1.04); }
+
+.g-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 14px 0 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 0;
+  gap: 16px;
+}
+.g-name {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.g-cats {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+.g-footer {
+  padding: 32px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.g-footer-brand {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 16px; color: rgba(255,255,255,0.15);
+}
+.g-footer-back {
+  color: #fff; text-decoration: none;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  display: flex; align-items: center; gap: 8px;
+  transition: gap 0.2s;
+}
+.g-footer-back:hover { gap: 14px; }
+
+@media (max-width: 768px) {
+  nav, .page-header, .divider, .gallery-wrap, .g-footer { padding-left: 24px; padding-right: 24px; }
+  .divider { margin-left: 24px; margin-right: 24px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Portfolio
+  </a>
+  <a href="index.html" class="nav-logo">MNKS</a>
+  <span class="nav-right">10 Projects · <a href="https://www.behance.net/meenakspriyesh" target="_blank">Behance ↗</a></span>
+</nav>
+
+<header class="page-header">
+  <h1 class="page-title">Selected projects</h1>
+  <div class="page-dot"></div>
+</header>
+
+<div class="divider"></div>
+
+<div class="filter-bar">
+  <button class="f-btn active" data-filter="all">All</button>
+  <button class="f-btn" data-filter="publication">Publication & Print</button>
+  <button class="f-btn" data-filter="photography">Photography & Film</button>
+  <button class="f-btn" data-filter="motion">Motion & Animation</button>
+  <button class="f-btn" data-filter="uiux">UI / UX</button>
+  <button class="f-btn" data-filter="social">Social Media</button>
+</div>
+
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="grid">
+
+    <a class="g-card" data-cat="social" href="kulam-festival.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail_Artboard 3.png" alt="Kulam Festival"></div>
+      <div class="g-meta">
+        <span class="g-name">Kulam Festival</span>
+        <span class="g-cats">Social Media · Event Branding</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="social" href="polite-society.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail-20.png" alt="Polite Society"></div>
+      <div class="g-meta">
+        <span class="g-name">Polite Society</span>
+        <span class="g-cats">Social Media · Content Creation</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="publication" href="anti-fashion.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail-18.png" alt="Anti Fashion"></div>
+      <div class="g-meta">
+        <span class="g-name">Anti Fashion</span>
+        <span class="g-cats">Publication · Typography</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="uiux" href="community-bowl.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail-17.png" alt="Community Bowl"></div>
+      <div class="g-meta">
+        <span class="g-name">Community Bowl</span>
+        <span class="g-cats">Web Design · UX</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="publication" href="nazaar-na-lage.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/THUMBNAIL-11.png" alt="Nazaar na Lage"></div>
+      <div class="g-meta">
+        <span class="g-name">Nazaar na Lage</span>
+        <span class="g-cats">Poster Design · Motion</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="motion" href="i-am-here.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail-19.png" alt="i am here"></div>
+      <div class="g-meta">
+        <span class="g-name">i am here</span>
+        <span class="g-cats">Animation · Storytelling</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="photography" href="sparsh.html">
+      <div class="g-image"><img src="./images/projects/sparsh/image 1.png" alt="Power & Pleasure"></div>
+      <div class="g-meta">
+        <span class="g-name">Power &amp; Pleasure</span>
+        <span class="g-cats">Magazine Shoot · Art Direction</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="photography" href="transcendence.html">
+      <div class="g-image"><img src="./images/projects/transcendence/hero section.png" alt="Transcendence"></div>
+      <div class="g-meta">
+        <span class="g-name">Transcendence</span>
+        <span class="g-cats">Fashion Film · Art Direction</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="publication" href="nift-gp-show.html">
+      <div class="g-image"><img src="./images/projects/NIFT Graduation Show 2025 /hero.gif" alt="NIFT GP Show"></div>
+      <div class="g-meta">
+        <span class="g-name">NIFT GP Show 2025</span>
+        <span class="g-cats">Event Design · Brand Identity</span>
+      </div>
+    </a>
+
+    <a class="g-card" data-cat="motion social" href="slingshot.html">
+      <div class="g-image"><img src="./images/projects/Project Thumbnail/project thumbnail-23.png" alt="Slingshot"></div>
+      <div class="g-meta">
+        <span class="g-name">Slingshot</span>
+        <span class="g-cats">Motion · 3D · Reels</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer class="g-footer">
+  <span class="g-footer-brand">MNKS ×</span>
+  <a href="index.html" class="g-footer-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Portfolio
+  </a>
+</footer>
+
+<script>
+  (() => {
+    const dot = document.getElementById('curDot');
+    const ring = document.getElementById('curRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function loop() {
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a, .g-card').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hov'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hov'));
+    });
+  })();
+
+  (() => {
+    const btns  = document.querySelectorAll('.f-btn');
+    const cards = document.querySelectorAll('.g-card');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        cards.forEach(card => {
+          const cats = card.dataset.cat || '';
+          const show = filter === 'all' || cats.includes(filter);
+          card.style.display = show ? 'block' : 'none';
+        });
+      });
+    });
+  })();
+
+  (() => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.g-card').forEach(c => obs.observe(c));
+  })();
+</script>
+</body>
+</html>

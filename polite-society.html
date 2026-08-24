@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polite Society — Meenakshi Priyesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--lime:#CDFF57;--black:#111110;--muted:#888882;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:#fff;color:var(--black);cursor:none;overflow-x:hidden;}
+
+.cur-dot{width:8px;height:8px;background:var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{width:34px;height:34px;border:1.5px solid rgba(0,0,0,0.2);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;}
+.cur-ring.hov{width:52px;height:52px;border-color:rgba(0,0,0,0.3);background:rgba(0,0,0,0.04);}
+
+nav.top-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(248,247,244,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:400;color:rgba(0,0,0,0.45);text-decoration:none;letter-spacing:0.01em;transition:color .2s;}
+.nav-back:hover{color:var(--black);}
+.nav-back svg{width:13px;height:13px;}
+.nav-logo{font-family:'Permanent Marker',cursive;font-size:16px;color:var(--black);text-decoration:none;letter-spacing:0.02em;}
+.nav-count{font-size:12px;color:rgba(0,0,0,0.3);letter-spacing:.06em;font-weight:400;}
+
+.proj-hero{position:relative;height:100vh;min-height:600px;overflow:hidden;display:flex;align-items:flex-end;}
+.hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;}
+.proj-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.78) 0%,rgba(0,0,0,0.25) 55%,rgba(0,0,0,0.08) 100%);}
+.hero-text{position:relative;z-index:2;padding:0 64px 80px;}
+.hero-cat{display:inline-block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:20px;}
+.hero-title{font-family:var(--serif);font-style:italic;font-size:clamp(56px,8vw,112px);font-weight:400;line-height:.95;color:#fff;margin-bottom:24px;}
+.hero-tagline{font-size:14px;color:rgba(255,255,255,0.45);letter-spacing:.04em;}
+.hero-num{position:absolute;right:64px;bottom:80px;font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,0.28);}
+
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(0,0,0,0.08);}
+.info-cell{padding:32px 48px;border-right:1px solid rgba(0,0,0,0.08);}
+.info-cell:last-child{border-right:none;}
+.info-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.info-val{font-size:13px;font-weight:500;color:var(--black);line-height:1.5;}
+
+.ps-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:64px 64px 0;display:block;}
+
+.ps-text{padding:40px 64px 48px;}
+.ps-text h2{font-family:var(--sans);font-size:clamp(30px,4vw,52px);font-weight:900;color:var(--black);margin-bottom:20px;line-height:1.05;letter-spacing:-.02em;}
+.ps-text p{font-size:15px;line-height:1.8;color:#555;max-width:680px;}
+
+.ps-two-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 64px 64px;}
+.ps-two-cols .col-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ps-two-cols p{font-size:14px;line-height:1.8;color:#555;}
+
+.ps-campaign-stack{display:flex;flex-direction:column;gap:8px;}
+
+
+
+
+
+
+.ps-full{overflow:hidden;background:#ddd;margin-top:8px;}
+.ps-full img{display:block;width:100%;height:auto;}
+.ps-full.cover{aspect-ratio:16/9;}
+.ps-full.cover img{height:100%;object-fit:cover;}
+
+.ps-divider{height:1px;background:rgba(0,0,0,0.08);margin:0 64px;}
+
+.ps-display-text{padding:80px 64px 32px;}
+.ps-display-text .line1{font-family:var(--serif);font-style:italic;font-size:clamp(36px,5vw,72px);font-weight:400;color:var(--black);line-height:1.1;}
+.ps-display-text .line2{font-family:var(--sans);font-size:clamp(42px,7vw,100px);font-weight:900;color:var(--black);line-height:.9;letter-spacing:-.03em;text-transform:uppercase;}
+
+.ps-lookbook-wrap{padding:20px 0 0;}
+.ps-lookbook-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;}
+.lb-cell{aspect-ratio:2/3;overflow:hidden;background:#ccc;}
+.lb-cell img{display:block;width:100%;height:100%;object-fit:cover;}
+
+.ps-banner{padding:28px 64px;background:#1a35a8;text-align:center;margin:48px 0;}
+.ps-banner h3{font-family:var(--sans);font-size:clamp(15px,1.6vw,22px);font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase;line-height:1;}
+.ps-banner.cream{background:#1a35a8;}
+.ps-banner.cream h3{color:#fff;}
+
+.ps-pr-row{display:grid;gap:8px;margin-top:8px;}
+.ps-pr-row.two{grid-template-columns:1fr 1fr;}
+.ps-pr-cell{overflow:hidden;background:#ddd;aspect-ratio:4/3;}
+.ps-pr-cell img{display:block;width:100%;height:100%;object-fit:cover;}
+
+.proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+.pn-prev,.pn-next{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:12px;color:rgba(0,0,0,0.5);letter-spacing:0.01em;transition:color .2s;}
+.pn-next{justify-content:flex-end;}
+.pn-dir{font-size:12px;letter-spacing:0.01em;color:rgba(0,0,0,0.45);}
+.pn-title{font-size:12px;font-weight:500;color:rgba(0,0,0,0.7);transition:color .2s;}
+.pn-prev:hover,.pn-next:hover{color:rgba(0,0,0,0.85);}
+.pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+.pn-all:hover{opacity:0.6;}
+
+@media(max-width:768px){
+  nav.top-nav{padding:0 24px;}
+  .hero-text{padding:0 32px 60px;}
+  .hero-num{right:32px;bottom:60px;}
+  .info-strip{grid-template-columns:repeat(2,1fr);}
+  .ps-label{padding:48px 24px 0;}
+  .ps-text{padding:32px 24px 40px;}
+  .ps-two-cols{grid-template-columns:1fr;padding:32px 24px 48px;gap:32px;}
+  .ps-display-text{padding:60px 24px 24px;}
+  .ps-banner{padding:14px 24px;}
+  .ps-divider{margin:0 24px;}
+  .ps-pr-row.two{grid-template-columns:1fr;}
+  .proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+  .pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+}
+</style>
+</head>
+<body>
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav class="top-nav">
+  <a href="gallery.html" class="nav-back">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Projects
+  </a>
+  <a href="index.html" class="nav-logo">MNKS</a>
+  <span class="nav-count">07 / 11</span>
+</nav>
+
+<!-- HERO -->
+<section class="proj-hero">
+  <img class="hero-img" src="./images/projects/polite-society/campaign-hero.jpg" alt="Polite Society">
+  <div class="proj-hero-overlay"></div>
+  <div class="hero-text">
+    <span class="hero-cat">Social Media · Content Creation</span>
+    <h1 class="hero-title">Polite<br>Society</h1>
+    <p class="hero-tagline">Campaigns · Lookbook · Social Media · PR Package</p>
+  </div>
+  <span class="hero-num">07 / 11</span>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-cell"><p class="info-label">Role</p><p class="info-val">Campaign Identity, Package Design, Content Direction</p></div>
+  <div class="info-cell"><p class="info-label">Tools</p><p class="info-val">Adobe Illustrator, Photoshop, InDesign, Canva</p></div>
+  <div class="info-cell"><p class="info-label">Type</p><p class="info-val">Campaign · Campaign Branding · PR Package · Social Media</p></div>
+  <div class="info-cell"><p class="info-label">Year</p><p class="info-val">2025</p></div>
+</div>
+
+<!-- ════════════ SECTION 1 — CAMPAIGN ════════════ -->
+<div class="ps-campaign-stack">
+  <div class="ps-full" style="margin-top:0;">
+    <img src="./images/projects/polite-society/campaign-2.jpg" alt="Campaign">
+  </div>
+  <div class="ps-full" style="margin-top:0;">
+    <img src="./images/projects/polite-society/campaign-3.jpg" alt="Campaign">
+  </div>
+  <div class="ps-full" style="margin-top:0;">
+    <img src="./images/projects/polite-society/campaign-4.jpg" alt="Campaign">
+  </div>
+</div>
+
+<div class="ps-full">
+  <img src="./images/projects/polite-society/campaign-5.jpg" alt="Campaign">
+</div>
+
+<div class="ps-divider"></div>
+
+<!-- ════════════ SECTION 2 — LOOKBOOK ════════════ -->
+<div class="ps-banner" style="background:#1a35a8;">
+  <h3>Lookbook</h3>
+</div>
+
+<div class="ps-lookbook-wrap">
+  <div class="ps-lookbook-grid">
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-1.jpg" alt="Lookbook 1"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-2.jpg" alt="Lookbook 2"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-3.jpg" alt="Lookbook 3"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-4.jpg" alt="Lookbook 4"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-5.jpg" alt="Lookbook 5"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-6.jpg" alt="Lookbook 6"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-7.jpg" alt="Lookbook 7"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-8.jpg" alt="Lookbook 8"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-9.jpg" alt="Lookbook 9"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-10.jpg" alt="Lookbook 10"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-11.jpg" alt="Lookbook 11"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-12.jpg" alt="Lookbook 12"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-13.jpg" alt="Lookbook 13"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-14.jpg" alt="Lookbook 14"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-15.jpg" alt="Lookbook 15"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-16.jpg" alt="Lookbook 16"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-17.jpg" alt="Lookbook 17"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-18.jpg" alt="Lookbook 18"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-19.jpg" alt="Lookbook 19"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-20.jpg" alt="Lookbook 20"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-21.jpg" alt="Lookbook 21"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-22.jpg" alt="Lookbook 22"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-23.jpg" alt="Lookbook 23"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-24.jpg" alt="Lookbook 24"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-25.jpg" alt="Lookbook 25"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-26.jpg" alt="Lookbook 26"></div>
+    <div class="lb-cell"><img src="./images/projects/polite-society/lookbook-27.jpg" alt="Lookbook 27"></div>
+  </div>
+</div>
+
+<div class="ps-divider" style="margin-top:64px;"></div>
+
+<!-- ════════════ SECTION 3 — SOCIAL MEDIA ════════════ -->
+<div class="ps-banner">
+  <h3>Social Media</h3>
+</div>
+
+<div class="ps-full" style="background:#fff;">
+  <img src="./images/projects/polite-society/socialmedia.gif" alt="Social Media">
+</div>
+
+<div class="ps-divider"></div>
+
+<!-- ════════════ SECTION 4 — PR PACKAGE ════════════ -->
+<div class="ps-banner cream">
+  <h3>PR Package</h3>
+</div>
+
+<!-- PR interactive scene -->
+<div style="padding:60px 0;">
+  <div id="pr-scene" style="position:relative;width:100%;max-width:1100px;margin:0 auto;aspect-ratio:11/9;cursor:pointer;" onclick="prToggle()">
+
+    <!-- pr-1: lookbook — LEFT -->
+    <div class="pr-item" id="pr-i1" style="position:absolute;left:3%;top:14%;width:24%;">
+      <img src="./images/projects/polite-society/pr-1.jpg" id="pr1-thumb" style="width:100%;height:auto;display:block;cursor:zoom-in;">
+      <p style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a35a8;margin-top:10px;">Lookbook</p>
+    </div>
+
+    <!-- OPEN BOX — CENTRE -->
+    <div style="position:absolute;left:50%;top:10%;transform:translateX(-50%);width:40%;">
+      <img id="pr-img-closed" src="./images/projects/polite-society/pr-box.jpg"
+        style="width:100%;height:auto;display:block;transition:opacity 0.7s ease;">
+      <img id="pr-img-open" src="./images/projects/polite-society/pr-box-closed.jpg"
+        style="width:100%;height:auto;display:block;position:absolute;top:0;left:0;opacity:0;transition:opacity 0.7s ease;">
+      <p id="pr-box-caption" style="text-align:center;font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:12px;transition:opacity 0.4s ease;">Click to open</p>
+    </div>
+
+    <!-- pr-2: brochure — TOP RIGHT -->
+    <div class="pr-item" id="pr-i2" style="position:absolute;right:2%;top:4%;width:30%;">
+      <img src="./images/projects/polite-society/pr-2.jpg" id="pr2-thumb" style="width:100%;height:auto;display:block;cursor:zoom-in;">
+      <p style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a35a8;margin-top:10px;text-align:right;">Brochure</p>
+    </div>
+
+    <!-- INVITATION LETTER label — BOTTOM LEFT -->
+    <!-- pr-3: invitation — BOTTOM RIGHT of centre -->
+    <div class="pr-item" id="pr-i3" style="position:absolute;right:10%;bottom:28%;width:38%;">
+      <img src="./images/projects/polite-society/pr-3.jpg" id="pr3-thumb" style="width:100%;height:auto;display:block;cursor:zoom-in;">
+      <p style="font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1a35a8;margin-top:10px;">Invitation</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- page dim overlay -->
+<div id="pr3-dim" style="position:fixed;inset:0;background:rgba(255,255,255,0.72);z-index:499;opacity:0;transition:opacity 0.4s ease;pointer-events:none;"></div>
+
+<!-- pr-1 lookbook panel -->
+<div id="pr1-panel" style="position:fixed;top:0;right:0;width:100vw;height:100vh;background:rgba(255,255,255,0.4);backdrop-filter:blur(6px);z-index:500;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transform:translateX(60px);transition:opacity 0.4s ease,transform 0.4s ease;pointer-events:none;">
+  <button onclick="this.parentElement.style.opacity='0';this.parentElement.style.transform='translateX(60px)';this.parentElement.style.pointerEvents='none';document.getElementById('pr3-dim').style.opacity='0';" style="position:absolute;top:24px;left:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--black);letter-spacing:.04em;z-index:10;"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>
+  <img src="./images/projects/polite-society/lookbooklayout.png" style="width:100%;height:100%;object-fit:contain;display:block;">
+</div>
+
+<!-- pr-2 brochure panel -->
+<div id="pr2-panel" style="position:fixed;top:0;right:0;width:100vw;height:100vh;background:rgba(255,255,255,0.4);backdrop-filter:blur(6px);z-index:500;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transform:translateX(60px);transition:opacity 0.4s ease,transform 0.4s ease;pointer-events:none;">
+  <button onclick="this.parentElement.style.opacity='0';this.parentElement.style.transform='translateX(60px)';this.parentElement.style.pointerEvents='none';document.getElementById('pr3-dim').style.opacity='0';" style="position:absolute;top:24px;left:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--black);letter-spacing:.04em;z-index:10;"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>
+  <img src="./images/projects/polite-society/brochure.png" style="width:100%;height:100%;object-fit:contain;display:block;">
+</div>
+
+<!-- pr-3 right-side panel — outside scene so clicks don't trigger box toggle -->
+<div id="pr3-panel" style="position:fixed;top:0;right:0;width:100vw;height:100vh;background:rgba(255,255,255,0.4);backdrop-filter:blur(6px);z-index:500;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;transform:translateX(60px);transition:opacity 0.4s ease,transform 0.4s ease;pointer-events:none;">
+  <button onclick="this.parentElement.style.opacity='0';this.parentElement.style.transform='translateX(60px)';this.parentElement.style.pointerEvents='none';document.getElementById('pr3-dim').style.opacity='0';" style="position:absolute;top:24px;left:32px;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:var(--sans);font-size:13px;font-weight:600;color:var(--black);letter-spacing:.04em;z-index:10;"><svg width="16" height="16" viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Back</button>
+  <img src="./images/projects/polite-society/pr-3.jpg" style="width:100%;height:100%;object-fit:contain;display:block;">
+</div>
+
+<style>
+.pr-item{opacity:0;transform:scale(0.88) translateY(24px);transition:opacity 0.5s ease,transform 0.5s ease;pointer-events:none;}
+#pr-scene.box-open .pr-item{pointer-events:auto;}
+#pr-scene.box-open .pr-item{opacity:1;transform:scale(1) translateY(0);}
+
+#pr-scene.box-open #pr-i1{transition-delay:0.35s;}
+#pr-scene.box-open #pr-i2{transition-delay:0.5s;}
+#pr-scene.box-open #pr-i3{transition-delay:0.65s;}
+#pr-scene.box-open #pr-i3-label{transition-delay:0.65s;}
+</style>
+
+<script>
+(function(){
+  var dim = document.getElementById('pr3-dim');
+
+  function makePanel(thumbId, panelId){
+    var thumb = document.getElementById(thumbId);
+    var panel = document.getElementById(panelId);
+    var timer;
+    function show(){
+      clearTimeout(timer);
+      panel.style.opacity='1';
+      panel.style.transform='translateX(0)';
+      panel.style.pointerEvents='auto';
+      dim.style.opacity='1';
+    }
+    function hide(){
+      timer = setTimeout(function(){
+        panel.style.opacity='0';
+        panel.style.transform='translateX(60px)';
+        panel.style.pointerEvents='none';
+        dim.style.opacity='0';
+      }, 120);
+    }
+    thumb.addEventListener('mouseenter', show);
+    thumb.addEventListener('mouseleave', hide);
+    panel.addEventListener('mouseenter', show);
+    panel.addEventListener('mouseleave', hide);
+  }
+
+  makePanel('pr1-thumb', 'pr1-panel');
+  makePanel('pr2-thumb', 'pr2-panel');
+  makePanel('pr3-thumb', 'pr3-panel');
+})();
+function prToggle(){
+  var scene  = document.getElementById('pr-scene');
+  var closed = document.getElementById('pr-img-closed');
+  var open   = document.getElementById('pr-img-open');
+  var isOpen = scene.classList.toggle('box-open');
+  closed.style.opacity = isOpen ? '0' : '1';
+  open.style.opacity   = isOpen ? '1' : '0';
+  var caption = document.getElementById('pr-box-caption');
+  if(caption) caption.style.opacity = isOpen ? '0' : '1';
+}
+</script>
+
+
+<!-- PROJECT NAV -->
+<nav class="proj-nav">
+  <a href="looped.html" class="pn-prev"><span class="pn-dir">← Previous</span><span class="pn-title">Looped</span></a>
+  <a href="gallery.html" class="pn-all">All Projects</a>
+  <a href="kulam-festival.html" class="pn-next"><span class="pn-dir">Next →</span><span class="pn-title">Kulam Festival</span></a>
+</nav>
+
+<script>
+(() => {
+  const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hov'));el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));});
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slingshot — Meenakshi Priyesh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--lime:#CDFF57;--black:#111110;--muted:#888882;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:#fff;color:var(--black);cursor:none;overflow-x:hidden;}
+.cur-dot{width:8px;height:8px;background:var(--black);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.cur-ring{width:34px;height:34px;border:1.5px solid rgba(0,0,0,0.22);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s;}
+.cur-ring.hov{width:52px;height:52px;border-color:rgba(0,0,0,0.4);background:rgba(0,0,0,0.04);}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(248,247,244,0.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);}
+.nav-back{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:400;color:rgba(0,0,0,0.45);text-decoration:none;letter-spacing:0.01em;transition:color .2s;}
+.nav-back:hover{color:var(--black);}
+.nav-back svg{width:13px;height:13px;}
+.nav-logo{font-family:'Permanent Marker',cursive;font-size:16px;color:var(--black);text-decoration:none;letter-spacing:0.02em;}
+.nav-count{font-size:12px;color:rgba(0,0,0,0.3);letter-spacing:.06em;font-weight:400;}
+
+/* ── HERO HEADER ── */
+.proj-header{padding:120px 64px 0;}
+.proj-header .cat{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;display:block;}
+.proj-header h1{font-family:var(--sans);font-style:normal;font-size:clamp(52px,7vw,100px);font-weight:900;line-height:.95;color:var(--black);margin-bottom:20px;}
+.proj-header .tagline{font-size:14px;color:#777;letter-spacing:.03em;margin-bottom:48px;}
+
+/* ── INFO STRIP ── */
+.info-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,0.08);border-bottom:1px solid rgba(0,0,0,0.08);margin-bottom:64px;}
+.info-cell{padding:28px 48px;border-right:1px solid rgba(0,0,0,0.08);}
+.info-cell:last-child{border-right:none;}
+.info-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.info-val{font-family:var(--sans);font-style:normal;font-size:14px;font-weight:500;color:var(--black);line-height:1.4;}
+
+/* ── MOSAIC GRID ── */
+.mosaic{padding:0 0 100px;}
+.row{margin-bottom:8px;display:grid;gap:8px;}
+
+/* Row types */
+.row-full{grid-template-columns:1fr;}
+.row-half{grid-template-columns:1fr 1fr;}
+.row-third{grid-template-columns:1fr 1fr 1fr;}
+.row-two-thirds{grid-template-columns:2fr 1fr;}
+.row-one-third{grid-template-columns:1fr 2fr;}
+
+/* Image cells */
+.m-cell{overflow:hidden;background:#f5f5f3;}
+.m-cell img{display:block;width:100%;height:100%;object-fit:cover;}
+
+/* Aspect ratios */
+.ar-16-9{aspect-ratio:16/9;}
+.ar-4-3{aspect-ratio:4/3;}
+.ar-4-5{aspect-ratio:4/5;}
+.ar-1-1{aspect-ratio:1/1;}
+.ar-3-2{aspect-ratio:3/2;}
+.ar-2-3{aspect-ratio:2/3;}
+.ar-5-4{aspect-ratio:5/4;}
+
+/* ── CAPTION SECTION ── */
+.proj-section{padding:80px 64px 40px;}
+.section-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.proj-section h2{font-family:var(--sans);font-style:normal;font-size:36px;font-weight:900;color:var(--black);margin-bottom:24px;}
+.proj-section p{font-size:15px;line-height:1.8;color:#444;max-width:640px;}
+.proj-section p+p{margin-top:18px;}
+
+/* ── PROJECT NAV ── */
+.proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+.pn-prev,.pn-next{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:12px;color:rgba(0,0,0,0.5);letter-spacing:0.01em;transition:color .2s;}
+.pn-next{justify-content:flex-end;}
+.pn-dir{font-size:12px;letter-spacing:0.01em;color:rgba(0,0,0,0.45);}
+.pn-title{font-size:12px;font-weight:500;color:rgba(0,0,0,0.7);transition:color .2s;}
+.pn-prev:hover,.pn-next:hover{color:rgba(0,0,0,0.85);}
+.pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+.pn-all:hover{opacity:0.6;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .proj-header{padding:100px 20px 0;}
+  .info-strip{grid-template-columns:repeat(2,1fr);}
+  .info-cell{padding:20px 20px;}
+  .row-half,.row-third,.row-two-thirds,.row-one-third{grid-template-columns:1fr;}
+  .proj-nav{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 48px;background:rgba(248,247,244,0.96);border-top:1px solid rgba(0,0,0,0.06);}
+  .pn-all{font-family:"Permanent Marker",cursive;font-size:16px;color:rgba(0,0,0,0.85);text-decoration:none;letter-spacing:0.02em;}
+}
+</style>
+</head>
+<body>
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<nav>
+  <a href="gallery.html" class="nav-back">
+    <svg viewBox="0 0 14 14" fill="none"><path d="M12 7H2M2 7L6 3M2 7L6 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Projects
+  </a>
+  <a href="index.html" class="nav-logo">MNKS</a>
+  <span class="nav-count">11 / 11</span>
+</nav>
+
+<!-- Hero image -->
+<div style="width:100%;overflow:hidden;margin-top:60px;">
+  <img src="./images/projects/slingshot/1.jpg" alt="Slingshot hero" style="display:block;width:100%;height:auto;">
+</div>
+
+<!-- Info strip -->
+<div class="info-strip">
+  <div class="info-cell"><p class="info-label">Role</p><p class="info-val">Brand Strategy, Packaging Design, Creative Direction, Social Media Design</p></div>
+  <div class="info-cell"><p class="info-label">Tools</p><p class="info-val">Adobe Illustrator, Adobe Photoshop, Nano Banana, Envato, Ideogram</p></div>
+  <div class="info-cell"><p class="info-label">Type</p><p class="info-val">Brand Identity · Packaging · Social Media · Launch Campaign</p></div>
+  <div class="info-cell"><p class="info-label">Year</p><p class="info-val">2025</p></div>
+</div>
+
+<!-- MOSAIC GRID -->
+<div class="mosaic">
+
+  <!-- Text block -->
+  <div style="padding:72px 64px;">
+    <p style="font-family:'DM Sans',system-ui,sans-serif;font-size:clamp(20px,2.4vw,30px);font-weight:900;line-height:1.35;color:#111110;margin-bottom:32px;">"What if taking care of your gut felt less like a health routine and more like cracking open your favorite soda?"</p>
+    <p style="font-family:'DM Sans',system-ui,sans-serif;font-size:15px;line-height:1.85;color:#444;max-width:720px;">Slingshot is a playful prebiotic drink designed for a generation that wants better choices without sacrificing fun. The challenge was to create a brand that makes gut health feel exciting, approachable, and refreshingly different from the overly serious wellness space. From vibrant packaging to energetic campaign visuals, every touchpoint was designed to spark curiosity, start conversations, and prove that feeling good can look just as good.</p>
+  </div>
+
+  <!-- Row 2: Two columns — lifestyle shots -->
+  <div class="row row-half">
+    <div class="m-cell" style="aspect-ratio:3/2;">
+      <img src="./images/projects/slingshot/2.jpg" alt="Slingshot lifestyle 1" style="object-position:center 45%;">
+    </div>
+    <div class="m-cell" style="aspect-ratio:3/2;">
+      <img src="./images/projects/slingshot/3.jpg" alt="Slingshot lifestyle 2" style="object-position:center 45%;">
+    </div>
+  </div>
+
+  <!-- Row 3: Full-width — logo GIF -->
+  <div class="row row-full">
+    <div style="position:relative;overflow:hidden;background:#fff;aspect-ratio:16/8;">
+      <img src="./images/projects/slingshot/download.gif" alt="Slingshot logo" style="position:absolute;width:100%;height:auto;top:50%;left:0;transform:translateY(-50%);">
+    </div>
+  </div>
+
+  <!-- Row 4: Two columns — brand imagery -->
+  <div class="row row-half">
+    <div class="m-cell ar-4-5" style="background:#fff;">
+      <img src="./images/projects/slingshot/5.jpg" alt="Slingshot brand 1" style="object-fit:contain;">
+    </div>
+    <div class="m-cell ar-4-5" style="background:#fff;">
+      <img src="./images/projects/slingshot/6.jpg" alt="Slingshot brand 2" style="object-fit:contain;">
+    </div>
+  </div>
+
+  <!-- Packaging text -->
+  <div style="padding:64px 64px;">
+    <p style="font-family:'DM Sans',system-ui,sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#888882;margin-bottom:16px;">Packaging</p>
+    <p style="font-family:'DM Sans',system-ui,sans-serif;font-size:15px;line-height:1.85;color:#444;max-width:720px;">The packaging was designed to stand out instantly on the shelf with a bold, playful aesthetic that reflects Slingshot's energetic personality. Bright colors, clean typography, and space-inspired illustrations come together to create a memorable identity while clearly communicating the product's key benefits. Every design element was crafted to make the can feel fun, modern, and as refreshing as the drink inside.</p>
+  </div>
+
+  <!-- Row 5: Full-width product video -->
+  <div class="row row-full" style="margin-bottom:0;">
+    <div class="m-cell ar-16-9">
+      <video src="./images/projects/slingshot/4.mp4" autoplay loop muted playsinline style="display:block;width:100%;height:100%;object-fit:cover;"></video>
+    </div>
+  </div>
+
+  <!-- Row 6: Full-width — product group shot -->
+  <div class="row row-full">
+    <div class="m-cell ar-16-9">
+      <img src="./images/projects/slingshot/8.jpg" alt="Slingshot cans">
+    </div>
+  </div>
+
+  <!-- Row 7: Three columns — infographic social posts -->
+  <div class="row row-third">
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/9.jpg" alt="Social post 1">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/10.jpg" alt="Social post 2">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/11.jpg" alt="Social post 3">
+    </div>
+  </div>
+
+  <!-- Row 8: Full-width — phone mockups GIF -->
+  <div class="row row-full">
+    <div class="m-cell ar-16-9">
+      <img src="./images/projects/slingshot/slingshot social.gif" alt="Slingshot social reels" style="object-fit:cover;">
+    </div>
+  </div>
+
+</div><!-- /mosaic white -->
+
+<div style="background:#ff8a58;">
+<div class="mosaic" style="padding-top:8px;">
+
+  <!-- Row 9: Three columns — extra set 1 -->
+  <div class="row row-third">
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/20.jpg" alt="Extra image 1">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/21.jpg" alt="Extra image 2">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/22.jpg" alt="Extra image 3">
+    </div>
+  </div>
+
+  <!-- Row 10: Three columns — extra set 2 -->
+  <div class="row row-third">
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/23.jpg" alt="Extra image 4">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/24.jpg" alt="Extra image 5">
+    </div>
+    <div class="m-cell ar-4-5">
+      <img src="./images/projects/slingshot/25.jpg" alt="Extra image 6">
+    </div>
+  </div>
+
+  <!-- Warning banner -->
+  <div class="row row-full">
+    <div style="background:#fff;">
+      <img src="./images/projects/slingshot/WARNING.png" alt="Warning banner" style="display:block;width:100%;height:auto;">
+    </div>
+  </div>
+
+  <!-- Row 11: Two columns — product/lifestyle -->
+  <div class="row row-half">
+    <div class="m-cell ar-4-3">
+      <img src="./images/projects/slingshot/15.jpg" alt="Product shot 1">
+    </div>
+    <div class="m-cell ar-4-3">
+      <img src="./images/projects/slingshot/16.jpg" alt="Product shot 2">
+    </div>
+  </div>
+
+  <!-- Row 10: Full-width — action -->
+  <div class="row row-full">
+    <div class="m-cell ar-16-9">
+      <img src="./images/projects/slingshot/17.jpg" alt="Slingshot action">
+    </div>
+  </div>
+
+
+</div><!-- /mosaic orange -->
+
+<!-- Overview text -->
+<section class="proj-section">
+  <p class="section-label">Overview</p>
+  <h2>Built to make gut health feel anything but boring.</h2>
+  <p>From naming the brand to launching it into the spotlight, Slingshot was built to make gut health feel anything but boring. The journey began with crafting a bold identity and playful nomenclature that captured the brand's energetic, rebellious spirit. That personality was then translated into vibrant packaging, where every color, illustration, and detail was designed to turn heads on the shelf.</p>
+  <p>The story didn't stop at the can. A complete launch ecosystem was created, including product mockups, campaign visuals, social media content, educational carousels, motion concepts, and launch creatives that introduced prebiotics in a fun, approachable way. Every touchpoint was designed to feel bold, witty, and unapologetically fresh — proving that taking care of your gut can be just as exciting as cracking open your favorite soda.</p>
+</section>
+
+<!-- Project nav -->
+<nav class="proj-nav">
+  <a href="bigfoot-coworking.html" class="pn-prev"><span class="pn-dir">← Previous</span><span class="pn-title">Bigfoot Coworking</span></a>
+  <a href="gallery.html" class="pn-all">All Projects</a>
+  <a href="anti-fashion.html" class="pn-next"><span class="pn-dir">Back to first →</span><span class="pn-title">Anti Fashion</span></a>
+</nav>
+
+</div><!-- /orange section -->
+
+<script>
+(() => {
+  const dot=document.getElementById('curDot'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){dot.style.left=mx+'px';dot.style.top=my+'px';rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+  document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hov'));el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));});
+})();
+</script>
+</body>
+</html>
